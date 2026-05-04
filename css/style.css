@@ -100,23 +100,11 @@ button {
   }
 }
 
-@media (min-width: 1366px) and (max-width: 1919px) {
-  .hero {
-    min-height: clamp(642px, calc(10.47vw + 499px), 700px);
-    background-position: center top;
-    background-size: calc(28.56vw + 1372px) auto;
-  }
-}
-
-@media (min-width: 1920px) {
+@media (min-width: 1366px) {
   .hero {
     min-height: 700px;
     background-position: center top;
-    background-size: 1920px auto;
-  }
-
-  .hero__inner {
-    min-height: 700px;
+    background-size: auto 100%;
   }
 }
 
@@ -127,9 +115,9 @@ button {
   padding-top: 26px;
 }
 
-@media (min-width: 1366px) and (max-width: 1919px) {
+@media (min-width: 1366px) {
   .hero__inner {
-    min-height: clamp(642px, calc(10.47vw + 499px), 700px);
+    min-height: 700px;
   }
 }
 
