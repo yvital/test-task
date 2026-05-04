@@ -1,5 +1,56 @@
 const playersSection = document.querySelector(".players");
 
+const desktopAnimationQuery = window.matchMedia("(min-width: 1366px)");
+
+const initScrollAnimations = () => {
+  if (!desktopAnimationQuery.matches || !("IntersectionObserver" in window)) {
+    return;
+  }
+
+  const animatedSections = document.querySelectorAll(".lecture, .session, .stages");
+
+  if (!animatedSections.length) {
+    return;
+  }
+
+  animatedSections.forEach((section) => section.classList.add("is-scroll-animated"));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      rootMargin: "0px 0px -18% 0px",
+      threshold: 0.18,
+    },
+  );
+
+  animatedSections.forEach((section) => observer.observe(section));
+
+  window.requestAnimationFrame(() => {
+    animatedSections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight * 0.82 && rect.bottom > 0;
+
+      if (!isInView) {
+        return;
+      }
+
+      section.classList.add("is-visible");
+      observer.unobserve(section);
+    });
+  });
+};
+
+initScrollAnimations();
+
 if (playersSection) {
   const cards = [...playersSection.querySelectorAll(".player-card")];
   const counter = playersSection.querySelector(".slider__counter");
